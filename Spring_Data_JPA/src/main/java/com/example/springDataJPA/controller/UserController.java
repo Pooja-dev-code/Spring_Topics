@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class UserController {
 
@@ -22,5 +24,17 @@ public class UserController {
     public ResponseEntity<UserDTO> getUserById(@PathVariable("id") int userId){
         UserDTO userDTO = userService.getByUserID(userId);
         return ResponseEntity.ok(userDTO);
+    }
+
+    @GetMapping("/byName/{UserName}")
+    public ResponseEntity<List<UserDTO>> getUserByName(@PathVariable("UserName") String name){
+        List<UserDTO> users = userService.getUsersByName(name);
+        return ResponseEntity.ok(users);
+    }
+
+    @GetMapping("/byAge/{userAge}")
+    public ResponseEntity<List<UserDTO>> getUserByAge(@PathVariable("userAge") String age){
+        List<UserDTO> users = userService.getUsersByAge(age);
+        return ResponseEntity.ok(users);
     }
 }
